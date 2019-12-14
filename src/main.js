@@ -3,15 +3,20 @@ import App from './App.vue'
 import router from './router'
 import './registerServiceWorker'
 
-import vuesax from 'vuesax'
-import 'vuesax/dist/vuesax.css'
+import '../node_modules/bulma/css/bulma.css'
 
 Vue.config.productionTip = false
-
 
 new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
 
-Vue.use(vuesax)
+String.prototype.format = function(){
+  var args = arguments;
+  return this.replace(/{(\d+)}/g, function(match, number) { 
+      return typeof args[number] != 'undefined'
+          ? args[number]
+          : match;
+  });
+}
