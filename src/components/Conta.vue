@@ -7,25 +7,26 @@
                 <button @click="$emit('close')" class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
-                <div>
-                    <label for="">Pessoa</label>
-                    <br/>
-                    <select class="select" v-model="pessoa">
-                        <option v-for="p in pessoas" :key="p.codigo">
-                            {{ p.nome }}
-                        </option>
-                    </select>
-                </div>
-                <div>
-                    <label>Tipo Despesa</label>
-                    <br/>
-                    <select class="select" v-model="tipoDespesa">
-                        <option v-for="t in tiposDespesas" :key="t.codigo">
-                            {{ t.nome }}
-                        </option>
-                    </select>
+                <div class="field">
+                    <div class="control" >
+                        <label class="label">Pessoa</label>
+                        <select class="select is-medium" v-model="pessoa">
+                            <option v-for="p in pessoas" :key="p.codigo">
+                                {{ p.nome }}
+                            </option>
+                        </select>
+                    </div>
 
+                    <div class="control">
+                        <label class="label">Tipo Despesa</label>
+                        <select class="select is-medium" v-model="tipoDespesa">
+                            <option v-for="t in tiposDespesas" :key="t.codigo">
+                                {{ t.nome }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
+                
                 <div class="field">
                     <label class="label"> Data Emissao</label>
                     <input type="date" class="date" id="dataEmissao" v-model="dataEmissao"  />

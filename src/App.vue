@@ -4,24 +4,23 @@
       <div class="column is-8 is-offset-2">
         <br/>
         <button class="button is-primary" @click="openModal"> Adicionar Conta </button> 
-        <button class="button is-secundary" @click="openModal"> Consultar total </button> 
+        <button class="button is-secundary" @click="consult"> Consultar total </button> 
+      </div>   
+      <br/>
+      
+    </div> 
+    <div class="column is-8 is-offset-2">
+        <table class="table is-bordered">
+          <tr>
+            <th>Despesa</th>
+            <th>Total</th>
+          </tr>
+          <tr v-for="t in totalConta" :key="t">
+            <td> {{t.despesa}} </td>      
+            <td> {{t.total}} </td>
+          </tr>
+        </table>
       </div>      
-    </div>
-
-    <div class="columns">
-      <table class="table is-bordered">
-        <tr>
-          <th>Pessoa</th>
-          
-        </tr>
-        <tr v-for="c in contas" :key="c.codigo">
-          <td>{{c.nome}}</td>
-
-        </tr>
-      </table>
-    </div>
-
-    
     <conta
         :ativo="ativo"
         :titulo="'Adicionar Conta a Pagar'"
@@ -46,21 +45,16 @@ export default {
       pessoas: [],
       tiposDespesas: [],
       contas:[],
+      totalConta:[],
       ativo: false,
     }
   },
-  beforeMounted(){
-    
-  },
   methods : {
     openModal: function(){
-
-      this.pessoas.push({codigo: 1, nome: "Gabriel"});
-      
       this.ativo = true;
-      axios.get("").then(pessoas =>{
+      axios.get("http://localhost:8080/pessoa").then(pessoas =>{
         this.pessoas = pessoas.data;
-        axios.get("").then( tiposDespesas =>{
+        axios.get("http://localhost:8080/despesa").then( tiposDespesas =>{
           this.tiposDespesas = tiposDespesas
           this.ativo = true;
         })
@@ -76,12 +70,14 @@ export default {
         dataVencimento: dataVencimento,
         valor: valor,
         dataPagamento: dataPagamento
-      }   
+      }
+      axios.post("http://localhost:8080/conta", contaPagar).then(() => {
 
-      alert(contaPagar)
-
-      axios.post("", contaPagar).then(() => {
-
+      })
+    },
+    consult:function(){
+      axios.get().then(response =>{
+        this.totalConta = response.data
       })
     }
   }
